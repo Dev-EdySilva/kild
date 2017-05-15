@@ -16,8 +16,7 @@
             
             use Controller\Routes\Route;
             
-            $URL = URI;
-            
+            $URL = URI::getUri();
             
             if($URL[0]==""){
                $url = '/';

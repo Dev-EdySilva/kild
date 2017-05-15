@@ -1,19 +1,15 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  * Permite o trabalho de rotas baseado no ngRoute presente no AngularJS
  * 
- * @version 0.2
+ * @version 0.3
  * @author Edigleysson <edigleyssonsilva@gmail.com>
  * @copyright (c) 2017, Edigleysson Silva
  * 
  * 0.2 => Adicionada a funcinoalidade de passagem de parâmetros na URL
+ * 0.3 => Adicionada a funcionalidade de roteamento com passagem de closure em forma de string da forma (ClassName@methodName) baseada em Laravel
  */
 
 namespace Controller\Routes;
@@ -72,11 +68,7 @@ class Route {
         }
     }
     
-    
-   public static function checkParams(){
-       
-   }
-    
+
     
     /**
      * 
@@ -89,6 +81,15 @@ class Route {
         }
        
         if(in_array($url, $keys)){
+
+            $clos = self::$routes[$url];
+
+            if( is_string($clos) ){
+                $aux = explode('@', $clos);
+                $obj = new $aux[0];
+                return $obj->{$aux[1]}();
+            }
+
             // executando função
             return call_user_func(self::$routes[$url]);
         }else{

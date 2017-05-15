@@ -7,4 +7,4 @@ define('BASE_URL', 'http://localhost/Projetos/2dmedia');
 $uri = (isset($_GET['url'])) ? $_GET['url'] : '';
 $uri = explode('/', $uri);
 
-define('URI', $uri);
+URI::setUri($uri);
